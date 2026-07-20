@@ -980,6 +980,7 @@ components:
           example: "2026-07-13T19:32:00Z"
           description: "Дата та час оновлення запису"
           readOnly: true
+
     #============
     Error:
       type: object

@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -45,5 +44,6 @@ public class AdminController {
 
         return ResponseEntity.ok().body(adminDtoList);
     }
+
 
 }
