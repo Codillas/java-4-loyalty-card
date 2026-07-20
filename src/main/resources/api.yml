@@ -708,14 +708,18 @@ components:
     SignUpRequest:
       type: object
       required:
-        - name
+        - firstName
+        - lastName
         - phoneNumber
         - email
         - password
       properties:
-        name:
+        firstName:
           type: string
-          example: Vasya Pupkin
+          example: Vasya
+        lastName:
+          type: string
+          example: Pupkin
         phoneNumber:
           type: string
           example: "+417612312312"

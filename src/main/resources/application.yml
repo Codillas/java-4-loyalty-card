@@ -1,0 +1,9 @@
+spring:
+
+  application:
+    name: java-3-loyalty-card
+
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.jdbc.autoconfigure.DataSourceAutoConfiguration
+      - org.springframework.boot.hibernate.autoconfigure.HibernateJpaAutoConfiguration
