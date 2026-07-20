@@ -145,6 +145,47 @@ paths:
 
   # Admins
   /admins:
+    post:
+      summary: Create admin (only for SUPERUSER)
+      tags:
+        - Admins
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateAdminRequest"
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Admin"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
     get:
       summary: Get all admins
       tags:
@@ -812,6 +853,40 @@ components:
           description: "Дата та час оновлення запису"
           readOnly: true
     #============
+    CreateAdminRequest:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - email
+        - phoneNumber
+        - password
+        - role
+      properties:
+        firstName:
+          type: string
+          example: Petro
+        lastName:
+          type: string
+          example: Ivanenko
+        email:
+          type: string
+          format: email
+          example: "admin@codillas.com"
+        phoneNumber:
+          type: string
+          example: "+417612312312"
+        password:
+          type: string
+          format: password
+          writeOnly: true
+          example: 'Best_secure_password'
+        role:
+          type: string
+          enum: [ SUPERUSER, ADMIN ]
+          example: ADMIN
+      additionalProperties: false
+    #============
     Admin:
       type: object
       required:
@@ -820,6 +895,7 @@ components:
         - lastName
         - email
         - phoneNumber
+        - role
         - createdAt
         - updatedAt
       properties:
@@ -841,6 +917,10 @@ components:
         phoneNumber:
           type: string
           example: "+417612312312"
+        role:
+          type: string
+          enum: [ SUPERUSER, ADMIN ]
+          example: ADMIN
         createdAt:
           type: string
           format: date-time
