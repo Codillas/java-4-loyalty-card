@@ -1,8 +1,8 @@
-package com.codillas.loyaltycard.controller;
+package loyaltycard.controller;
 
-import com.codillas.loyaltycard.controller.dto.AdminDto;
-import com.codillas.loyaltycard.controller.dto.Role;
-import com.codillas.loyaltycard.controller.dto.SignUpRequestDto;
+import loyaltycard.controller.dto.AdminDto;
+import loyaltycard.controller.dto.Role;
+import loyaltycard.controller.dto.SignUpRequestDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,5 +45,7 @@ public class AdminController {
         return ResponseEntity.ok().body(adminDtoList);
     }
 
-
 }
+
+
+
