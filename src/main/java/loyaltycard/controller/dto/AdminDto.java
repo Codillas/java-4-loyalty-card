@@ -1,4 +1,4 @@
-package com.codillas.loyaltycard.controller.dto;
+package loyaltycard.controller.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,10 +12,12 @@ public class AdminDto {
 
     private UUID id;
     private String firstName;
-    private String LastName;
+    private String lastName;
     private String email;
     private String phoneNumber;
     private Role role;
+    private Status status;
     private Instant createdAt;
     private Instant updatedAt;
+
 }
