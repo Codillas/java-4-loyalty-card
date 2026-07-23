@@ -14,4 +14,5 @@ public class SignUpRequestDto {
     private String phoneNumber;
     @ToString.Exclude
     private String password;
+
 }
