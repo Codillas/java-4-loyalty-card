@@ -13,7 +13,7 @@ import java.time.Instant;
 @Component
 public class AdminMapper {
 
-    public static Admin toDomain(AdminDto adminDto) {
+    public Admin toDomain(AdminDto adminDto) {
 
         Admin admin = new Admin();
         admin.setId(adminDto.getId());
@@ -55,4 +55,5 @@ public class AdminMapper {
 
         return admin;
     }
+
 }

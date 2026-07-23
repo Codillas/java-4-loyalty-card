@@ -73,10 +73,6 @@ public class AdminController {
         List<Admin> adminList = adminService.getAdmins();
 
         List<AdminDto> adminDtoList = adminList.stream().map(adminMapper::toDto).toList();
-    @GetMapping("/admins")
-    public ResponseEntity<List<AdminDto>> getAllAdmins() {
-
-        List<AdminDto> adminDtoList = adminDtoHashMap.values().stream().toList();
 
         return ResponseEntity.ok().body(adminDtoList);
     }
@@ -114,7 +110,3 @@ public class AdminController {
     }
 
 }
-}
-
-
-
