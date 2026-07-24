@@ -8,8 +8,7 @@ import lombok.ToString;
 @NoArgsConstructor
 public class SignUpRequestDto {
 
-    private String firstName;
-    private String lastName;
+    private String name;
     private String email;
     private String phoneNumber;
     @ToString.Exclude

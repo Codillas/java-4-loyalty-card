@@ -28,7 +28,7 @@ public class AdminServiceImpl implements AdminService {
         log.info("Attempting to create an admin with email {}", admin.getEmail());
 
         Optional<Admin> optionalAdmin = adminHashMap.values().stream()
-                .filter(admin -> admin.getEmail().equals(admin.getEmail()))
+                .filter(existingAdmin -> existingAdmin.getEmail().equals(admin.getEmail()))
                 .findFirst();
 
         if (optionalAdmin.isPresent()) {

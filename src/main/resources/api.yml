@@ -786,18 +786,14 @@ components:
     SignUpRequest:
       type: object
       required:
-        - firstName
-        - lastName
+        - name
         - phoneNumber
         - email
         - password
       properties:
-        firstName:
+        name:
           type: string
-          example: Vasya
-        lastName:
-          type: string
-          example: Pupkin
+          example: Vasya Pupkin
         phoneNumber:
           type: string
           example: "+417612312312"
@@ -889,8 +885,7 @@ components:
       type: object
       required:
         - id
-        - firstName
-        - lastName
+        - name
         - email
         - phoneNumber
         - type
@@ -902,12 +897,9 @@ components:
           format: uuid
           example: 7b1c1f34-9f45-4d7a-8f0e-2f3a1b9c6d21
           readOnly: true
-        firstName:
+        name:
           type: string
-          example: Vasyl
-        lastName:
-          type: string
-          example: Pupkin
+          example: Vasyl Pupkin
         email:
           type: string
           format: email
@@ -936,19 +928,15 @@ components:
     CreateAdminRequest:
       type: object
       required:
-        - firstName
-        - lastName
+        - name
         - email
         - phoneNumber
         - password
         - role
       properties:
-        firstName:
+        name:
           type: string
-          example: Petro
-        lastName:
-          type: string
-          example: Ivanenko
+          example: Petro Ivanenko
         email:
           type: string
           format: email
@@ -971,8 +959,7 @@ components:
       type: object
       required:
         - id
-        - firstName
-        - lastName
+        - name
         - email
         - phoneNumber
         - role
@@ -985,12 +972,9 @@ components:
           format: uuid
           example: aefff665-1ab1-4160-b090-24321895a7d0
           readOnly: true
-        firstName:
+        name:
           type: string
-          example: Petro
-        lastName:
-          type: string
-          example: Ivanenko
+          example: Petro Ivanenko
         email:
           type: string
           format: email
