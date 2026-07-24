@@ -17,8 +17,7 @@ public class AdminMapper {
 
         Admin admin = new Admin();
         admin.setId(adminDto.getId());
-        admin.setFirstName(adminDto.getFirstName());
-        admin.setLastName(adminDto.getLastName());
+        admin.setName(adminDto.getName());
         admin.setEmail(adminDto.getEmail());
         admin.setRole(Role.valueOf(admin.getRole().name()));
         admin.setStatus(Status.valueOf(adminDto.getStatus().name()));
@@ -33,8 +32,7 @@ public class AdminMapper {
 
         AdminDto adminDto = new AdminDto();
         adminDto.setId(admin.getId());
-        adminDto.setFirstName(admin.getFirstName());
-        adminDto.setLastName(admin.getLastName());
+        adminDto.setName(admin.getName());
         adminDto.setEmail(admin.getEmail());
         adminDto.setPhoneNumber(admin.getPhoneNumber());
         adminDto.setRole(loyaltycard.controller.dto.Role.valueOf(admin.getRole().name()));
@@ -47,13 +45,11 @@ public class AdminMapper {
 
     public Admin toDomain(SignUpRequestDto dto) {
         Admin admin = new Admin();
-        admin.setFirstName(dto.getFirstName());
-        admin.setLastName(dto.getLastName());
+        admin.setName(dto.getName());
         admin.setEmail(dto.getEmail());
         admin.setPhoneNumber(dto.getPhoneNumber());
         admin.setPassword(dto.getPassword());
 
         return admin;
     }
-
 }
