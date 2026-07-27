@@ -1,0 +1,20 @@
+services:
+
+  db:
+    image: postgres
+    restart: always
+    shm_size: 128mb
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_password
+      POSTGRES_DB: loyalty_card
+    volumes:
+      - ./data:/var/lib/postgresql
+
+        # якщо у вас щось вже запущено на порті 5432, то можна це видалити
+        #Виконуючи ці кроки:
+        # 1.виконайте команду lsof -i :5432
+        # 2.скопіюйте PID
+        # 3.kill -9 <PID>
