@@ -7,12 +7,12 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Entity
-@Table(name = "admins")
+@Table(name = "customers")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class AdminEntity {
+public class CustomerEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -28,9 +28,6 @@ public class AdminEntity {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
-
-    @Enumerated(EnumType.STRING)
     private Status status;
 
     @Column(name = "created_at")
@@ -40,6 +37,3 @@ public class AdminEntity {
     private Instant updatedAt;
 
     }
-
-
-

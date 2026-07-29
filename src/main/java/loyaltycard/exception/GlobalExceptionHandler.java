@@ -30,4 +30,24 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDto);
     }
+
+    @ExceptionHandler(CustomerNotFoundException.class)
+    public ResponseEntity<ErrorDto> handleCustomerNotFoundException(CustomerNotFoundException e) {
+
+        log.error(e.getMessage());
+
+        ErrorDto errorDto = new ErrorDto(e.getMessage());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDto);
+    }
+
+    @ExceptionHandler(CustomerAlreadyExistsException.class)
+    public ResponseEntity<ErrorDto> handleCustomerAlreadyExistsException(CustomerAlreadyExistsException e) {
+
+        log.error(e.getMessage());
+
+        ErrorDto errorDto = new ErrorDto(e.getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDto);
+    }
 }
