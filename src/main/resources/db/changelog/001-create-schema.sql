@@ -1,13 +1,12 @@
+--liquibase formatted sql
 -- 001-create-schema.sql
--- Loyalty Card System - Initial schema
--- changeset anton.lappa
+-- changeset anton.lappa:001
 
 
 CREATE TABLE customers
 (
     id           UUID PRIMARY KEY,
-    first_name   TEXT        NOT NULL,
-    last_name    TEXT        NOT NULL,
+    name         TEXT        NOT NULL,
     email        TEXT        NOT NULL UNIQUE,
     password     TEXT        NOT NULL,
     phone_number TEXT        NOT NULL,
@@ -19,8 +18,7 @@ CREATE TABLE customers
 CREATE TABLE admins
 (
     id           UUID PRIMARY KEY,
-    first_name   TEXT        NOT NULL,
-    last_name    TEXT        NOT NULL,
+    name         TEXT        NOT NULL,
     email        TEXT        NOT NULL UNIQUE,
     password     TEXT        NOT NULL,
     role         TEXT        NOT NULL,

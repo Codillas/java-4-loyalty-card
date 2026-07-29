@@ -2,6 +2,7 @@ package loyaltycard.mapper;
 
 import loyaltycard.controller.dto.AdminDto;
 import loyaltycard.controller.dto.SignUpRequestDto;
+import loyaltycard.repository.entity.AdminEntity;
 import loyaltycard.service.model.Admin;
 import loyaltycard.service.model.Role;
 import loyaltycard.service.model.Status;
@@ -13,20 +14,32 @@ import java.time.Instant;
 @Component
 public class AdminMapper {
 
-    public Admin toDomain(AdminDto adminDto) {
+    public Admin toDomain(AdminEntity adminEntity) {
 
         Admin admin = new Admin();
-        admin.setId(adminDto.getId());
-        admin.setName(adminDto.getName());
-        admin.setEmail(adminDto.getEmail());
-        admin.setRole(Role.valueOf(admin.getRole().name()));
-        admin.setStatus(Status.valueOf(adminDto.getStatus().name()));
-        admin.setPhoneNumber(adminDto.getPhoneNumber());
-        admin.setCreatedAt(Instant.now());
-        admin.setUpdatedAt(Instant.now());
+        admin.setId(adminEntity.getId());
+        admin.setName(adminEntity.getName());
+        admin.setEmail(adminEntity.getEmail());
+        admin.setRole(Role.valueOf(adminEntity.getRole().name()));
+        admin.setStatus(Status.valueOf(adminEntity.getStatus().name()));
+        admin.setPhoneNumber(adminEntity.getPhoneNumber());
+        admin.setCreatedAt(adminEntity.getCreatedAt());
+        admin.setUpdatedAt(adminEntity.getUpdatedAt());
 
         return admin;
     }
+
+    public Admin toDomain(SignUpRequestDto dto) {
+        Admin admin = new Admin();
+        admin.setName(dto.getName());
+        admin.setEmail(dto.getEmail());
+        admin.setPhoneNumber(dto.getPhoneNumber());
+        admin.setPassword(dto.getPassword());
+
+        return admin;
+    }
+
+
 
     public AdminDto toDto(Admin admin) {
 
@@ -43,13 +56,20 @@ public class AdminMapper {
         return adminDto;
     }
 
-    public Admin toDomain(SignUpRequestDto dto) {
-        Admin admin = new Admin();
-        admin.setName(dto.getName());
-        admin.setEmail(dto.getEmail());
-        admin.setPhoneNumber(dto.getPhoneNumber());
-        admin.setPassword(dto.getPassword());
+    public AdminEntity toEntity(Admin admin) {
 
-        return admin;
+        AdminEntity adminEntity = new AdminEntity();
+        adminEntity.setId(admin.getId());
+        adminEntity.setName(admin.getName());
+        adminEntity.setEmail(admin.getEmail());
+        adminEntity.setPassword(admin.getPassword());
+        adminEntity.setPhoneNumber(admin.getPhoneNumber());
+        adminEntity.setRole(loyaltycard.repository.entity.Role.valueOf(admin.getRole().name()));
+        adminEntity.setStatus(loyaltycard.repository.entity.Status.valueOf(admin.getStatus().name()));
+        adminEntity.setCreatedAt(admin.getCreatedAt());
+        adminEntity.setUpdatedAt(admin.getUpdatedAt());
+
+        return adminEntity;
     }
+
 }
