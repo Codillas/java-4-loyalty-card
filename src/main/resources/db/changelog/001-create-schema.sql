@@ -9,7 +9,7 @@ CREATE TABLE customers
     name         TEXT        NOT NULL,
     email        TEXT        NOT NULL UNIQUE,
     password     TEXT        NOT NULL,
-    phone_number TEXT        NOT NULL,
+    phone_number TEXT        NOT NULL UNIQUE,
     role         TEXT        NOT NULL,
     created_at   TIMESTAMPTZ NOT NULL,
     updated_at   TIMESTAMPTZ NOT NULL
@@ -20,12 +20,13 @@ CREATE TABLE admins
     id           UUID PRIMARY KEY,
     name         TEXT        NOT NULL,
     email        TEXT        NOT NULL UNIQUE,
+    phone_number TEXT        NOT NULL UNIQUE,
     password     TEXT        NOT NULL,
     role         TEXT        NOT NULL,
     status       TEXT        NOT NULL,
     created_at   TIMESTAMPTZ NOT NULL,
-    updated_at   TIMESTAMPTZ NOT NULL,
-    phone_number TEXT        NOT NULL
+    updated_at   TIMESTAMPTZ NOT NULL
+
 
 );
 

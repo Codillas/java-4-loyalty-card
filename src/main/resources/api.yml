@@ -584,17 +584,68 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-    delete:
+
+  /customers/{customerId}/activate:
+    put:
       parameters:
         - $ref: '#/components/parameters/customerId'
-      summary: Delete customer by ID
+      summary: Activate customer
       tags:
         - Customers
       responses:
-        '204':
-          description: No Content
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Customer"
         '401':
           description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /customers/{customerId}/block:
+    put:
+      parameters:
+        - $ref: '#/components/parameters/customerId'
+      summary: Block customer
+      tags:
+        - Customers
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Customer"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '403':
+          description: Forbidden
           content:
             application/json:
               schema:
@@ -888,7 +939,7 @@ components:
         - name
         - email
         - phoneNumber
-        - type
+        - status
         - createdAt
         - updatedAt
       properties:
@@ -907,11 +958,11 @@ components:
         phoneNumber:
           type: string
           example: "+417612312312"
-        type:
+        status:
           type: string
-          description: "Рівень лояльності клієнта (не пов'язано з правами доступу)"
-          enum: [ BRONZE, SILVER, GOLD ]
-          example: GOLD
+          enum: [ ACTIVE, BLOCKED ]
+          example: ACTIVE
+          readOnly: true
         createdAt:
           type: string
           format: date-time
