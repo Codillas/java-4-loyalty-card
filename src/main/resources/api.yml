@@ -7,6 +7,9 @@ info:
 servers:
   - url: 'http://localhost:8080'
 
+security:
+  - bearerAuth: []
+
 tags:
   - name: Auth for customers
     description: Auth description for customers
@@ -25,6 +28,7 @@ paths:
   #Auth
   /login:
     post:
+      security: []
       summary: Login endpoint customers
       tags:
         - Auth for customers
@@ -67,6 +71,7 @@ paths:
 
   /sign-up:
     post:
+      security: []
       summary: Sign up endpoint customers
       tags:
         - Auth for customers
@@ -103,6 +108,7 @@ paths:
 
   /admins/login:
     post:
+      security: []
       summary: Login endpoint admins
       tags:
         - Auth for admins
@@ -782,6 +788,11 @@ paths:
                 $ref: "#/components/schemas/Error"
 
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   parameters:
     # Card
     cardId:

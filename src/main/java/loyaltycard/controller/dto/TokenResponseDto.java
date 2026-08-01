@@ -10,6 +10,4 @@ import lombok.NoArgsConstructor;
 public class TokenResponseDto {
 
     private String token;
-    private String tokenType;
-    private Integer expiresIn;
 }

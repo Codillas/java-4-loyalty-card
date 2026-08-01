@@ -1,5 +1,5 @@
 package loyaltycard.controller.dto;
 
 public enum Role {
-    ADMIN, SUPER_ADMIN
+    CUSTOMER, ADMIN, SUPER_ADMIN
 }
