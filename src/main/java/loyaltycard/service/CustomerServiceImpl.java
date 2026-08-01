@@ -9,6 +9,7 @@ import loyaltycard.repository.CustomerRepository;
 import loyaltycard.repository.entity.CustomerEntity;
 import loyaltycard.service.model.Customer;
 import loyaltycard.service.model.Status;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -21,6 +22,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public Customer createCustomer(Customer customer) {
@@ -33,6 +35,7 @@ public class CustomerServiceImpl implements CustomerService {
             throw new CustomerAlreadyExistsException(customer.getEmail());
         }
 
+        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
         customer.setStatus(Status.ACTIVE);
         customer.setCreatedAt(Instant.now());
         customer.setUpdatedAt(Instant.now());

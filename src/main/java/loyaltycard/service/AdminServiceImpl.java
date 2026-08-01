@@ -10,6 +10,7 @@ import loyaltycard.repository.entity.AdminEntity;
 import loyaltycard.service.model.Admin;
 import loyaltycard.service.model.Role;
 import loyaltycard.service.model.Status;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -22,6 +23,7 @@ public class AdminServiceImpl implements AdminService {
 
     private final AdminRepository adminRepository;
     private final AdminMapper adminMapper;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public Admin createAdmin(Admin admin) {
@@ -34,6 +36,7 @@ public class AdminServiceImpl implements AdminService {
             throw new AdminAlreadyExistException(admin.getEmail());
         }
 
+        admin.setPassword(passwordEncoder.encode(admin.getPassword()));
         admin.setStatus(Status.ACTIVE);
         admin.setRole(Role.ADMIN);
         admin.setCreatedAt(Instant.now());

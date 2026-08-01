@@ -6,8 +6,9 @@ import loyaltycard.controller.dto.SignUpRequestDto;
 import loyaltycard.controller.dto.TokenResponseDto;
 import loyaltycard.mapper.CustomerMapper;
 import loyaltycard.service.CustomerService;
-import loyaltycard.service.JwtService;
+import loyaltycard.service.TokenService;
 import loyaltycard.service.model.Customer;
+import loyaltycard.service.model.Role;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,7 @@ public class AuthController {
 
     private final CustomerService customerService;
     private final CustomerMapper customerMapper;
-    private final JwtService jwtService;
+    private final TokenService tokenService;
 
     @PostMapping("/sign-up")
     public ResponseEntity<TokenResponseDto> signUp(@Valid @RequestBody SignUpRequestDto signUpRequestDto) {
@@ -29,13 +30,10 @@ public class AuthController {
         Customer customer = customerMapper.toDomain(signUpRequestDto);
         Customer createdCustomer = customerService.createCustomer(customer);
 
-        String token = jwtService.generateToken(createdCustomer.getEmail());
-        TokenResponseDto tokenResponseDto = new TokenResponseDto(
-                token,
-                jwtService.getTokenType(),
-                jwtService.getExpiresIn()
-        );
+        String token = tokenService.createToken(createdCustomer.getId().toString(), Role.CUSTOMER);
+        TokenResponseDto tokenResponseDto = new TokenResponseDto(token);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(tokenResponseDto);
     }
 }
+
