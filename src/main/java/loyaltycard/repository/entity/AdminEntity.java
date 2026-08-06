@@ -28,10 +28,10 @@ public class AdminEntity {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private RoleEntity roleEntity;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private StatusEntity statusEntity;
 
     @Column(name = "created_at")
     private Instant createdAt;

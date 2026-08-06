@@ -1,5 +1,5 @@
 package loyaltycard.controller.dto;
 
-public enum Status {
+public enum StatusDto {
     ACTIVE, BLOCKED
 }
