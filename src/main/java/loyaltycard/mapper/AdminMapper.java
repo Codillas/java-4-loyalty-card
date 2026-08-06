@@ -1,14 +1,16 @@
 package loyaltycard.mapper;
 
 import loyaltycard.controller.dto.AdminDto;
+import loyaltycard.controller.dto.RoleDto;
 import loyaltycard.controller.dto.SignUpRequestDto;
+import loyaltycard.controller.dto.StatusDto;
 import loyaltycard.repository.entity.AdminEntity;
+import loyaltycard.repository.entity.RoleEntity;
+import loyaltycard.repository.entity.StatusEntity;
 import loyaltycard.service.model.Admin;
 import loyaltycard.service.model.Role;
 import loyaltycard.service.model.Status;
 import org.springframework.stereotype.Component;
-
-import java.time.Instant;
 
 
 @Component
@@ -20,8 +22,8 @@ public class AdminMapper {
         admin.setId(adminEntity.getId());
         admin.setName(adminEntity.getName());
         admin.setEmail(adminEntity.getEmail());
-        admin.setRole(Role.valueOf(adminEntity.getRole().name()));
-        admin.setStatus(Status.valueOf(adminEntity.getStatus().name()));
+        admin.setRole(Role.valueOf(adminEntity.getRoleEntity().name()));
+        admin.setStatus(Status.valueOf(adminEntity.getStatusEntity().name()));
         admin.setPhoneNumber(adminEntity.getPhoneNumber());
         admin.setCreatedAt(adminEntity.getCreatedAt());
         admin.setUpdatedAt(adminEntity.getUpdatedAt());
@@ -48,8 +50,8 @@ public class AdminMapper {
         adminDto.setName(admin.getName());
         adminDto.setEmail(admin.getEmail());
         adminDto.setPhoneNumber(admin.getPhoneNumber());
-        adminDto.setRole(loyaltycard.controller.dto.Role.valueOf(admin.getRole().name()));
-        adminDto.setStatus(loyaltycard.controller.dto.Status.valueOf(admin.getStatus().name()));
+        adminDto.setRoleDto(RoleDto.valueOf(admin.getRole().name()));
+        adminDto.setStatusDto(StatusDto.valueOf(admin.getStatus().name()));
         adminDto.setCreatedAt(admin.getCreatedAt());
         adminDto.setUpdatedAt(admin.getUpdatedAt());
 
@@ -64,8 +66,8 @@ public class AdminMapper {
         adminEntity.setEmail(admin.getEmail());
         adminEntity.setPassword(admin.getPassword());
         adminEntity.setPhoneNumber(admin.getPhoneNumber());
-        adminEntity.setRole(loyaltycard.repository.entity.Role.valueOf(admin.getRole().name()));
-        adminEntity.setStatus(loyaltycard.repository.entity.Status.valueOf(admin.getStatus().name()));
+        adminEntity.setRoleEntity(RoleEntity.valueOf(admin.getRole().name()));
+        adminEntity.setStatusEntity(StatusEntity.valueOf(admin.getStatus().name()));
         adminEntity.setCreatedAt(admin.getCreatedAt());
         adminEntity.setUpdatedAt(admin.getUpdatedAt());
 

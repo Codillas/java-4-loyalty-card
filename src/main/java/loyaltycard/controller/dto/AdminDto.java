@@ -14,8 +14,8 @@ public class AdminDto {
     private String name;
     private String email;
     private String phoneNumber;
-    private Role role;
-    private Status status;
+    private RoleDto roleDto;
+    private StatusDto statusDto;
     private Instant createdAt;
     private Instant updatedAt;
 

@@ -14,7 +14,7 @@ public class CustomerDto {
     private String name;
     private String email;
     private String phoneNumber;
-    private Status status;
+    private StatusDto statusDto;
     private Instant createdAt;
     private Instant updatedAt;
 

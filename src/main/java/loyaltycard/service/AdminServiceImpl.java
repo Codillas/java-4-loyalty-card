@@ -7,6 +7,7 @@ import loyaltycard.exception.AdminNotFoundException;
 import loyaltycard.mapper.AdminMapper;
 import loyaltycard.repository.AdminRepository;
 import loyaltycard.repository.entity.AdminEntity;
+import loyaltycard.repository.entity.StatusEntity;
 import loyaltycard.service.model.Admin;
 import loyaltycard.service.model.Role;
 import loyaltycard.service.model.Status;
@@ -91,7 +92,7 @@ public class AdminServiceImpl implements AdminService {
         }
 
         AdminEntity adminEntity = adminActive.get();
-        adminEntity.setStatus(loyaltycard.repository.entity.Status.ACTIVE);
+        adminEntity.setStatusEntity(StatusEntity.ACTIVE);
         adminEntity.setUpdatedAt(Instant.now());
         AdminEntity savedAdmin = adminRepository.save(adminEntity);
         Admin admin = adminMapper.toDomain(savedAdmin);
@@ -111,7 +112,7 @@ public class AdminServiceImpl implements AdminService {
         }
 
         AdminEntity adminEntity = adminActive.get();
-        adminEntity.setStatus(loyaltycard.repository.entity.Status.BLOCKED);
+        adminEntity.setStatusEntity(StatusEntity.BLOCKED);
         adminEntity.setUpdatedAt(Instant.now());
         AdminEntity savedAdmin = adminRepository.save(adminEntity);
         Admin admin = adminMapper.toDomain(savedAdmin);

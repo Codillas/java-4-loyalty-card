@@ -7,6 +7,7 @@ import loyaltycard.exception.CustomerNotFoundException;
 import loyaltycard.mapper.CustomerMapper;
 import loyaltycard.repository.CustomerRepository;
 import loyaltycard.repository.entity.CustomerEntity;
+import loyaltycard.repository.entity.StatusEntity;
 import loyaltycard.service.model.Customer;
 import loyaltycard.service.model.Status;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -110,7 +111,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         CustomerEntity customerEntity = optionalCustomer.get();
-        customerEntity.setStatus(loyaltycard.repository.entity.Status.ACTIVE);
+        customerEntity.setStatusEntity(StatusEntity.ACTIVE);
         customerEntity.setUpdatedAt(Instant.now());
         CustomerEntity savedCustomer = customerRepository.save(customerEntity);
         Customer customer = customerMapper.toDomain(savedCustomer);
@@ -128,7 +129,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         CustomerEntity customerEntity = optionalCustomer.get();
-        customerEntity.setStatus(loyaltycard.repository.entity.Status.BLOCKED);
+        customerEntity.setStatusEntity(StatusEntity.BLOCKED);
         customerEntity.setUpdatedAt(Instant.now());
         CustomerEntity savedCustomer = customerRepository.save(customerEntity);
         Customer customer = customerMapper.toDomain(savedCustomer);

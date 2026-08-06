@@ -28,7 +28,7 @@ public class CustomerEntity {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private StatusEntity statusEntity;
 
     @Column(name = "created_at")
     private Instant createdAt;

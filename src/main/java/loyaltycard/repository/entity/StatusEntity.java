@@ -1,5 +1,5 @@
 package loyaltycard.repository.entity;
 
-public enum Status {
+public enum StatusEntity {
     ACTIVE, BLOCKED
 }

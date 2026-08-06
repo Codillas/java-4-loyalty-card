@@ -2,8 +2,10 @@ package loyaltycard.mapper;
 
 import loyaltycard.controller.dto.CustomerDto;
 import loyaltycard.controller.dto.SignUpRequestDto;
+import loyaltycard.controller.dto.StatusDto;
 import loyaltycard.controller.dto.UpdateCustomerRequestDto;
 import loyaltycard.repository.entity.CustomerEntity;
+import loyaltycard.repository.entity.StatusEntity;
 import loyaltycard.service.model.Customer;
 import loyaltycard.service.model.Status;
 import org.springframework.stereotype.Component;
@@ -29,7 +31,7 @@ public class CustomerMapper {
         customer.setName(customerEntity.getName());
         customer.setEmail(customerEntity.getEmail());
         customer.setPhoneNumber(customerEntity.getPhoneNumber());
-        customer.setStatus(Status.valueOf(customerEntity.getStatus().name()));
+        customer.setStatus(Status.valueOf(customerEntity.getStatusEntity().name()));
         customer.setCreatedAt(customerEntity.getCreatedAt());
         customer.setUpdatedAt(customerEntity.getUpdatedAt());
 
@@ -52,7 +54,7 @@ public class CustomerMapper {
         customerDto.setName(customer.getName());
         customerDto.setEmail(customer.getEmail());
         customerDto.setPhoneNumber(customer.getPhoneNumber());
-        customerDto.setStatus(loyaltycard.controller.dto.Status.valueOf(customer.getStatus().name()));
+        customerDto.setStatusDto(StatusDto.valueOf(customer.getStatus().name()));
         customerDto.setCreatedAt(customer.getCreatedAt());
         customerDto.setUpdatedAt(customer.getUpdatedAt());
 
@@ -67,7 +69,7 @@ public class CustomerMapper {
         customerEntity.setEmail(customer.getEmail());
         customerEntity.setPassword(customer.getPassword());
         customerEntity.setPhoneNumber(customer.getPhoneNumber());
-        customerEntity.setStatus(loyaltycard.repository.entity.Status.valueOf(customer.getStatus().name()));
+        customerEntity.setStatusEntity(StatusEntity.valueOf(customer.getStatus().name()));
         customerEntity.setCreatedAt(customer.getCreatedAt());
         customerEntity.setUpdatedAt(customer.getUpdatedAt());
 
