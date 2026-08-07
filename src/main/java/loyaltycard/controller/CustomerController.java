@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-
 @RestController
 @RequestMapping("/customers")
 @RequiredArgsConstructor
@@ -42,7 +41,7 @@ public class CustomerController {
 
     @PutMapping("/{customerId}")
     public ResponseEntity<CustomerDto> updateCustomer(@PathVariable UUID customerId,
-                                                      @Valid @RequestBody UpdateCustomerRequestDto updateCustomerRequestDto) {
+            @Valid @RequestBody UpdateCustomerRequestDto updateCustomerRequestDto) {
 
         Customer customer = customerMapper.toDomain(updateCustomerRequestDto);
         Customer updatedCustomer = customerService.updateCustomer(customerId, customer);

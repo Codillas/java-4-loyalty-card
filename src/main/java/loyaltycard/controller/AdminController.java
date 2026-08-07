@@ -3,9 +3,12 @@ package loyaltycard.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import loyaltycard.controller.dto.AdminDto;
+import loyaltycard.controller.dto.LoginRequestDto;
 import loyaltycard.controller.dto.SignUpRequestDto;
+import loyaltycard.controller.dto.TokenResponseDto;
 import loyaltycard.mapper.AdminMapper;
 import loyaltycard.service.AdminService;
+import loyaltycard.service.AuthService;
 import loyaltycard.service.model.Admin;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +24,7 @@ public class AdminController {
 
     private final AdminService adminService;
     private final AdminMapper adminMapper;
+    private final AuthService authService;
 
     @PostMapping
     public ResponseEntity<AdminDto> createAdmin(@Valid @RequestBody SignUpRequestDto signUpRequestDto) {
@@ -30,6 +34,15 @@ public class AdminController {
         AdminDto adminDto = adminMapper.toDto(createdAdmin);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(adminDto);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<TokenResponseDto> login(@Valid @RequestBody LoginRequestDto loginRequestDto) {
+
+        String token = authService.loginAdmin(loginRequestDto.email(), loginRequestDto.password());
+        TokenResponseDto tokenResponseDto = new TokenResponseDto(token);
+
+        return ResponseEntity.status(HttpStatus.OK).body(tokenResponseDto);
     }
 
     @GetMapping

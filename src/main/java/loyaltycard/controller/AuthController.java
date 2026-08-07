@@ -2,9 +2,11 @@ package loyaltycard.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import loyaltycard.controller.dto.LoginRequestDto;
 import loyaltycard.controller.dto.SignUpRequestDto;
 import loyaltycard.controller.dto.TokenResponseDto;
 import loyaltycard.mapper.CustomerMapper;
+import loyaltycard.service.AuthService;
 import loyaltycard.service.CustomerService;
 import loyaltycard.service.TokenService;
 import loyaltycard.service.model.Customer;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final CustomerService customerService;
+    private final AuthService authService;
     private final CustomerMapper customerMapper;
     private final TokenService tokenService;
 
@@ -27,11 +30,21 @@ public class AuthController {
     public ResponseEntity<TokenResponseDto> signUp(@Valid @RequestBody SignUpRequestDto signUpRequestDto) {
 
         Customer customer = customerMapper.toDomain(signUpRequestDto);
-        Customer createdCustomer = customerService.createCustomer(customer);
 
-        String token = tokenService.createToken(createdCustomer.getId().toString(), Role.CUSTOMER);
+        String token = authService.signUp(customer);
+
         TokenResponseDto tokenResponseDto = new TokenResponseDto(token);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(tokenResponseDto);
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<TokenResponseDto> login(@Valid @RequestBody LoginRequestDto loginRequestDto) {
+
+        String token = authService.loginCustomer(loginRequestDto.email(), loginRequestDto.password());
+        TokenResponseDto tokenResponseDto = new TokenResponseDto(token);
+
+        return ResponseEntity.status(HttpStatus.OK).body(tokenResponseDto);
+    }
+
 }
