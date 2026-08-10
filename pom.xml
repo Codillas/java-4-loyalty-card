@@ -21,6 +21,7 @@
         <java.version>25</java.version>
         <jjwt.version>0.13.0</jjwt.version>
         <springdoc-openapi-starter-webmvc-ui.version>3.0.1</springdoc-openapi-starter-webmvc-ui.version>
+        <junit-jupiter.version>6.1.2</junit-jupiter.version>
     </properties>
 
     <dependencies>
@@ -71,6 +72,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit-jupiter.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
