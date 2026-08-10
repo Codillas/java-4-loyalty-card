@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AdminControllerTest {
 
-    // --- Stub implementations ---
 
     private static class StubAdminService implements AdminService {
 

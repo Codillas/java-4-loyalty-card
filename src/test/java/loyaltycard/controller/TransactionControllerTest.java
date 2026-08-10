@@ -25,8 +25,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TransactionControllerTest {
 
-    // --- Stub implementation ---
-
     private static class StubTransactionService implements TransactionService {
 
         final UUID fixedTransactionId = UUID.fromString("eeeeeeee-0000-0000-0000-000000000001");

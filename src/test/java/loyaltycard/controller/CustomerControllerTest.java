@@ -20,8 +20,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CustomerControllerTest {
 
-    // --- Stub implementation ---
-
     private static class StubCustomerService implements CustomerService {
 
         final UUID fixedId = UUID.fromString("cccccccc-0000-0000-0000-000000000001");

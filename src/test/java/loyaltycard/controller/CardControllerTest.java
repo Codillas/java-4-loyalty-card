@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CardControllerTest {
 
-    // --- Stub implementation ---
 
     private static class StubCardService implements CardService {
 

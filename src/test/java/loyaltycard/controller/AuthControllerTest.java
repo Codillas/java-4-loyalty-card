@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AuthControllerTest {
 
-    // --- Stub implementations ---
 
     private static class StubAuthService implements AuthService {
 
