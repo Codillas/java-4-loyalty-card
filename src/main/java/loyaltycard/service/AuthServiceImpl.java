@@ -4,17 +4,19 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import loyaltycard.exception.AccountIsBlockedException;
 import loyaltycard.exception.InvalidCredentialsException;
+import loyaltycard.mapper.AdminMapper;
+import loyaltycard.mapper.CustomerMapper;
 import loyaltycard.repository.AdminRepository;
 import loyaltycard.repository.CustomerRepository;
 import loyaltycard.repository.entity.AdminEntity;
 import loyaltycard.repository.entity.CustomerEntity;
-import loyaltycard.repository.entity.StatusEntity;
+import loyaltycard.service.model.Admin;
 import loyaltycard.service.model.Customer;
 import loyaltycard.service.model.Role;
+import loyaltycard.service.model.Status;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.security.auth.login.AccountLockedException;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -27,6 +29,8 @@ public class AuthServiceImpl implements AuthService {
     private final BCryptPasswordEncoder passwordEncoder;
     private final CustomerService customerService;
     private final AdminRepository adminRepository;
+    private final CustomerMapper customerMapper;
+    private final AdminMapper adminMapper;
 
 
     @Override
@@ -34,6 +38,8 @@ public class AuthServiceImpl implements AuthService {
 
         log.info("Attempting to sign-up customer with email {}", customer.getEmail());
 
+        // User createdUser = userService.createUser(user)
+        //String token = tokenService.createToken(createdUser.getId().toString(), Role.WORKER);
         Customer createdCustomer = customerService.createCustomer(customer);
         String token = tokenService.createToken(createdCustomer.getId().toString(), Role.CUSTOMER);
 
@@ -49,20 +55,18 @@ public class AuthServiceImpl implements AuthService {
 
         CustomerEntity customerEntity = customerRepository.findByEmail(email)
                 .orElseThrow(InvalidCredentialsException::new);
+        Customer customer = customerMapper.toDomain(customerEntity);
 
-        boolean passwordMatches = passwordEncoder.matches(password, customerEntity.getPassword());
+        boolean passwordMatches = passwordEncoder.matches(password, customer.getPassword());
 
         if (!passwordMatches) {
             throw new InvalidCredentialsException();
         }
-        if (customerEntity.getStatusEntity() == StatusEntity.BLOCKED) {
+        if (customer.getStatus() == Status.BLOCKED) {
             throw new AccountIsBlockedException();
         }
-//        if (!passwordEncoder.matches(password, customerEntity.getPassword())) {
-//            throw new InvalidCredentialsException();
-//        }
-//
-        String token = tokenService.createToken(customerEntity.getId().toString(), Role.CUSTOMER);
+
+        String token = tokenService.createToken(customer.getId().toString(), Role.CUSTOMER);
 
         log.info("Successfully login the customer with email {}", email);
 
@@ -76,17 +80,18 @@ public class AuthServiceImpl implements AuthService {
 
         AdminEntity adminEntity = adminRepository.findByEmail(email)
                 .orElseThrow(InvalidCredentialsException::new);
+        Admin admin = adminMapper.toDomain(adminEntity);
 
-        boolean passwordMatches = passwordEncoder.matches(password, adminEntity.getPassword());
+        boolean passwordMatches = passwordEncoder.matches(password, admin.getPassword());
 
         if (!passwordMatches) {
             throw new InvalidCredentialsException();
         }
-        if (adminEntity.getStatusEntity() == StatusEntity.BLOCKED) {
+        if (admin.getStatus() == Status.BLOCKED) {
             throw new AccountIsBlockedException();
         }
 
-        String token = tokenService.createToken(adminEntity.getId().toString(), Role.ADMIN);
+        String token = tokenService.createToken(admin.getId().toString(), admin.getRole());
 
         log.info("Successfully login the admin with email {}", email);
 

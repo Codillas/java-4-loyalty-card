@@ -8,6 +8,8 @@ import loyaltycard.mapper.CustomerMapper;
 import loyaltycard.service.CustomerService;
 import loyaltycard.service.model.Customer;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +23,7 @@ public class CustomerController {
     private final CustomerService customerService;
     private final CustomerMapper customerMapper;
 
+    @Secured("ADMIN")
     @GetMapping
     public ResponseEntity<List<CustomerDto>> getAllCustomers() {
 
@@ -30,6 +33,7 @@ public class CustomerController {
         return ResponseEntity.ok().body(customerDtoList);
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN') or #customerId.toString() == authentication.name")
     @GetMapping("/{customerId}")
     public ResponseEntity<CustomerDto> getCustomerById(@PathVariable UUID customerId) {
 
@@ -39,6 +43,7 @@ public class CustomerController {
         return ResponseEntity.ok().body(customerDto);
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN') or #customerId.toString() == authentication.name")
     @PutMapping("/{customerId}")
     public ResponseEntity<CustomerDto> updateCustomer(@PathVariable UUID customerId,
             @Valid @RequestBody UpdateCustomerRequestDto updateCustomerRequestDto) {
@@ -50,6 +55,7 @@ public class CustomerController {
         return ResponseEntity.ok().body(customerDto);
     }
 
+    @Secured("ADMIN")
     @PutMapping("/{customerId}/activate")
     public ResponseEntity<CustomerDto> activateCustomer(@PathVariable UUID customerId) {
 
@@ -59,6 +65,7 @@ public class CustomerController {
         return ResponseEntity.ok().body(customerDto);
     }
 
+    @Secured("ADMIN")
     @PutMapping("/{customerId}/block")
     public ResponseEntity<CustomerDto> blockCustomer(@PathVariable UUID customerId) {
 

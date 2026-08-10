@@ -22,6 +22,7 @@ public class AdminMapper {
         admin.setId(adminEntity.getId());
         admin.setName(adminEntity.getName());
         admin.setEmail(adminEntity.getEmail());
+        admin.setPassword(adminEntity.getPassword());
         admin.setRole(Role.valueOf(adminEntity.getRoleEntity().name()));
         admin.setStatus(Status.valueOf(adminEntity.getStatusEntity().name()));
         admin.setPhoneNumber(adminEntity.getPhoneNumber());

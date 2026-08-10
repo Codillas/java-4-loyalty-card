@@ -21,10 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final CustomerService customerService;
     private final AuthService authService;
     private final CustomerMapper customerMapper;
-    private final TokenService tokenService;
 
     @PostMapping("/sign-up")
     public ResponseEntity<TokenResponseDto> signUp(@Valid @RequestBody SignUpRequestDto signUpRequestDto) {
