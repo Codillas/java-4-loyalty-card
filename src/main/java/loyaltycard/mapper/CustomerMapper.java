@@ -31,6 +31,7 @@ public class CustomerMapper {
         customer.setName(customerEntity.getName());
         customer.setEmail(customerEntity.getEmail());
         customer.setPhoneNumber(customerEntity.getPhoneNumber());
+        customer.setPassword(customerEntity.getPassword());
         customer.setStatus(Status.valueOf(customerEntity.getStatusEntity().name()));
         customer.setCreatedAt(customerEntity.getCreatedAt());
         customer.setUpdatedAt(customerEntity.getUpdatedAt());

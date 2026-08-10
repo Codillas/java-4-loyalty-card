@@ -12,10 +12,14 @@ import loyaltycard.service.AuthService;
 import loyaltycard.service.model.Admin;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
+
+import static org.springframework.security.authorization.AuthorityReactiveAuthorizationManager.hasAnyAuthority;
 
 @RestController
 @RequestMapping("/admins")
@@ -26,6 +30,7 @@ public class AdminController {
     private final AdminMapper adminMapper;
     private final AuthService authService;
 
+    @Secured("SUPER_ADMIN")
     @PostMapping
     public ResponseEntity<AdminDto> createAdmin(@Valid @RequestBody SignUpRequestDto signUpRequestDto) {
 
@@ -36,6 +41,7 @@ public class AdminController {
         return ResponseEntity.status(HttpStatus.CREATED).body(adminDto);
     }
 
+
     @PostMapping("/login")
     public ResponseEntity<TokenResponseDto> login(@Valid @RequestBody LoginRequestDto loginRequestDto) {
 
@@ -45,6 +51,7 @@ public class AdminController {
         return ResponseEntity.status(HttpStatus.OK).body(tokenResponseDto);
     }
 
+    @Secured("SUPER_ADMIN")
     @GetMapping
     public ResponseEntity<List<AdminDto>> getAllAdmins() {
 
@@ -54,6 +61,7 @@ public class AdminController {
         return ResponseEntity.ok().body(adminDtoList);
     }
 
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN') or #adminId.toString() == authentication.name")
     @GetMapping("/{adminId}")
     public ResponseEntity<AdminDto> getAdminById(@PathVariable UUID adminId) {
 
@@ -63,6 +71,7 @@ public class AdminController {
         return ResponseEntity.ok().body(adminDto);
     }
 
+    @Secured("SUPER_ADMIN")
     @PutMapping("/{adminId}/activate")
     public ResponseEntity<AdminDto> activateAdmin(@PathVariable UUID adminId) {
 
@@ -72,6 +81,7 @@ public class AdminController {
         return ResponseEntity.ok().body(adminDto);
     }
 
+    @Secured("SUPER_ADMIN")
     @PutMapping("/{adminId}/block")
     public ResponseEntity<AdminDto> blockAdmin(@PathVariable UUID adminId) {
 
