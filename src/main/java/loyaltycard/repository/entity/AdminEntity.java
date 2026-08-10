@@ -27,9 +27,11 @@ public class AdminEntity {
 
     private String password;
 
+    @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private RoleEntity roleEntity;
 
+    @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private StatusEntity statusEntity;
 

@@ -50,4 +50,24 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDto);
     }
+
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity<ErrorDto> handleInvalidCredentialsException(InvalidCredentialsException e) {
+
+        log.error(e.getMessage());
+
+        ErrorDto errorDto = new ErrorDto(e.getMessage());
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorDto);
+    }
+
+    @ExceptionHandler(AccountIsBlockedException.class)
+    public ResponseEntity<ErrorDto> handleAccountIsBlockedException(AccountIsBlockedException e) {
+
+        log.error(e.getMessage());
+
+        ErrorDto errorDto = new ErrorDto(e.getMessage());
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorDto);
+    }
 }

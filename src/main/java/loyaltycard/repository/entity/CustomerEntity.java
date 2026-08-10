@@ -27,6 +27,7 @@ public class CustomerEntity {
 
     private String password;
 
+    @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private StatusEntity statusEntity;
 
