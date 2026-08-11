@@ -2,9 +2,12 @@ package loyaltycard.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import loyaltycard.exception.CardAlreadyExistsException;
 import loyaltycard.exception.CardNotFoundException;
+import loyaltycard.exception.CustomerNotFoundException;
 import loyaltycard.mapper.CardMapper;
 import loyaltycard.repository.CardRepository;
+import loyaltycard.repository.CustomerRepository;
 import loyaltycard.repository.entity.CardEntity;
 import loyaltycard.repository.entity.StatusEntity;
 import loyaltycard.service.model.Card;
@@ -21,12 +24,21 @@ import java.util.UUID;
 public class CardServiceImpl implements CardService {
 
     private final CardRepository cardRepository;
+    private final CustomerRepository customerRepository;
     private final CardMapper cardMapper;
 
     @Override
     public Card createCard(UUID customerId) {
 
         log.info("Creating a card for customer with id {}", customerId);
+
+        if (!customerRepository.existsById(customerId)) {
+            throw new CustomerNotFoundException(customerId);
+        }
+
+        if (cardRepository.findByCustomerId(customerId).isPresent()) {
+            throw new CardAlreadyExistsException(customerId);
+        }
 
         Card card = new Card();
         card.setCustomerId(customerId);
