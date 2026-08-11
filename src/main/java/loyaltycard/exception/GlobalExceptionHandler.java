@@ -110,5 +110,25 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDto);
     }
+
+    @ExceptionHandler(InsufficientBalanceException.class)
+    public ResponseEntity<ErrorDto> handleInsufficientBalanceException(InsufficientBalanceException e) {
+
+        log.error(e.getMessage());
+
+        ErrorDto errorDto = new ErrorDto(e.getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDto);
+    }
+
+    @ExceptionHandler(CardAlreadyExistsException.class)
+    public ResponseEntity<ErrorDto> handleCardAlreadyExistsException(CardAlreadyExistsException e) {
+
+        log.error(e.getMessage());
+
+        ErrorDto errorDto = new ErrorDto(e.getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDto);
+    }
 }
 

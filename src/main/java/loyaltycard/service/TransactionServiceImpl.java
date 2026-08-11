@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import loyaltycard.exception.CardIsBlockedException;
 import loyaltycard.exception.CardNotFoundException;
+import loyaltycard.exception.InsufficientBalanceException;
 import loyaltycard.exception.TransactionAlreadyCanceledException;
 import loyaltycard.exception.TransactionNotFoundException;
 import loyaltycard.mapper.TransactionMapper;
@@ -20,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -49,6 +49,9 @@ public class TransactionServiceImpl implements TransactionService {
         if (transaction.getDirection() == Direction.IN) {
             cardEntity.setBalance(cardEntity.getBalance() + transaction.getAmount());
         } else {
+            if (cardEntity.getBalance() < transaction.getAmount()) {
+                throw new InsufficientBalanceException(cardId);
+            }
             cardEntity.setBalance(cardEntity.getBalance() - transaction.getAmount());
         }
         cardEntity.setUpdatedAt(Instant.now());
