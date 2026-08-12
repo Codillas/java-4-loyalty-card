@@ -18,7 +18,7 @@ VALUES (
            'Super Admin',
            'super@mail.com',
            '+491234565430',
-           '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', -- admin123
+           '$2y$10$8FXtZX8uxWpWLKhK781ZMe1.z.dAR1Rnr9WsJMc21uJsTifqzlHQW', -- admin123
            'SUPER_ADMIN',
            'ACTIVE',
            NOW(),
