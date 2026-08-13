@@ -152,14 +152,14 @@ paths:
   # Admins
   /admins:
     post:
-      summary: Create admin (only for SUPERUSER)
+      summary: Create admin (only for SUPER ADMIN)
       tags:
         - Admins
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateAdminRequest"
+              $ref: "#/components/schemas/SignUpRequest"
       responses:
         '201':
           description: Created
@@ -564,7 +564,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Customer"
+              $ref: "#/components/schemas/UpdateCustomerRequest"
       responses:
         '200':
           description: OK
@@ -670,6 +670,51 @@ paths:
                 $ref: "#/components/schemas/Error"
 
   # Cards
+  /cards/customers/{customerId}:
+    post:
+      parameters:
+        - $ref: '#/components/parameters/customerId'
+      summary: Create card for customer
+      tags:
+        - Cards
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Card"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
   /cards/{cardId}:
     get:
       parameters:
@@ -849,14 +894,14 @@ components:
       type: object
       required:
         - name
-        - phoneNumber
+        - phone_number
         - email
         - password
       properties:
         name:
           type: string
           example: Vasya Pupkin
-        phoneNumber:
+        phone_number:
           type: string
           example: "+417612312312"
         email:
@@ -987,34 +1032,19 @@ components:
           description: "Дата та час оновлення запису"
           readOnly: true
     #============
-    CreateAdminRequest:
+    UpdateCustomerRequest:
       type: object
-      required:
-        - name
-        - email
-        - phoneNumber
-        - password
-        - role
       properties:
         name:
           type: string
-          example: Petro Ivanenko
+          example: Vasyl Pupkin
         email:
           type: string
           format: email
-          example: "admin@codillas.com"
+          example: "codillas@gmail.com"
         phoneNumber:
           type: string
           example: "+417612312312"
-        password:
-          type: string
-          format: password
-          writeOnly: true
-          example: 'Best_secure_password'
-        role:
-          type: string
-          enum: [ SUPERUSER, ADMIN ]
-          example: ADMIN
       additionalProperties: false
     #============
     Admin:
@@ -1046,7 +1076,7 @@ components:
           example: "+417612312312"
         role:
           type: string
-          enum: [ SUPERUSER, ADMIN ]
+          enum: [ ADMIN, SUPER_ADMIN ]
           example: ADMIN
         status:
           type: string
