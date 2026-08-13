@@ -1,4 +1,4 @@
-package com.codillas.loyaltycard;
+package loyaltycard;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
