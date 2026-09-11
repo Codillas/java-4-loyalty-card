@@ -8,7 +8,9 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on:
+      group: public-ci
+      labels: [site-dedicatednodes, os-linux, arch-x64]
 
     services:
       postgres:
@@ -18,7 +20,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres_password
         ports:
-          - 5432:5432
+          - 127.0.0.1::5432
         options: >-
           --health-cmd="pg_isready -U postgres"
           --health-interval=10s
@@ -33,7 +35,9 @@ jobs:
         with:
           java-version: '25'
           distribution: 'temurin'
-          cache: 'maven'
 
       - name: Build with Maven
+        env:
+          DATABASE_HOST: 127.0.0.1
+          DATABASE_PORT: ${{ job.services.postgres.ports['5432'] }}
         run: ./mvnw clean verify
