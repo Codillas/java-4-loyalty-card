@@ -9,8 +9,8 @@ on:
 jobs:
   build:
     runs-on:
-      group: public-ci
-      labels: [site-dedicatednodes, os-linux, arch-x64]
+      group: gha-public-ci
+      labels: [site-gha, os-linux, arch-x64]
 
     services:
       postgres:
